@@ -17,7 +17,7 @@ const TopBar = () => {
   const {user, dispatch} = useContext(Context);
   const [topbarstatus, setTopbarStatus] = useState(false);
 
-  const PF = "http://localhost:5000/Images/";
+  const PF = "https://blog-application-3ytw.onrender.com/Images/";
   let userInformation;
   
   if(user){
