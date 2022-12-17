@@ -1,0 +1,21 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./server/index.js",
+  "scripts": {
+    "build": "cd backend && npm install  && cd ../client && npm install && npm run build",
+    "start": "cd ./server && node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Niloy173/Blog-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Niloy173/Blog-App/issues"
+  },
+  "homepage": "https://github.com/Niloy173/Blog-App#readme"
+}

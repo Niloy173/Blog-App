@@ -1,0 +1,73 @@
+/* single post card design */
+
+.post {
+  width: 380px;
+  margin: 8px 25px 40px 25px;
+}
+
+.postImg {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.postInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.postCategory {
+  font-family: "Varela Round", sans-serif;
+  font-size: 11px;
+  color: #be9656;
+  line-height: 20px;
+  margin-top: 15px;
+  cursor: pointer;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.postTitle {
+  font-family: "Josefin Sans", sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.postDate {
+  font-family: "Lora", serif;
+  font-style: italic;
+  font-size: 13px;
+  color: #999;
+  margin-top: 15px;
+}
+
+.postDesc {
+  font-family: "Varela Round", sans-serif;
+  font-size: 14px;
+  color: #444;
+  line-height: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+@media screen and (max-width: 1024px) {
+  .postTitle {
+    font-size: 20px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .post {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 625px) {
+  .post {
+    width: fit-content;
+  }
+}
