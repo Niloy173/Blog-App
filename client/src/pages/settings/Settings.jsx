@@ -77,7 +77,7 @@ const Settings = () => {
 
         
             try {
-              await axios.post(`/upload`,data);
+              await axios.post(`/api/upload`,data);
             } catch (error) {
               setFlag(error.response.message);
               //console.log(error.message);
@@ -92,7 +92,7 @@ const Settings = () => {
         try {
     
           // console.log(formData);
-          await axios.put(`/user/${userInformation.userid}`,formData);
+          await axios.put(`/api/user/${userInformation.userid}`,formData);
           dispatch({ type: 'LOG_OUT'});
     
         } catch (error) {

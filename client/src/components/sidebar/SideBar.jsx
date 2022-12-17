@@ -13,18 +13,30 @@ const SideBar = () => {
   useEffect(() => {
     
     const fetch_all_category = async () => {
-      const response = await axios.get(`/posts`);
-      const category_arr = []
+      const response = await axios.get(`/api/posts`);
+      const category_arr = [];
 
-      response.data.forEach(e => {
+      if(Array.isArray(response.data)){
+
+        response.data.forEach(e => {
         
-        if(category_arr.indexOf(e.category) === -1){
+          if(category_arr.indexOf(e.category) === -1){
+  
+            category_arr.push(e.category)
+          }
+      })
 
-          category_arr.push(e.category)
-        }
-    })
-      setCategories(category_arr);
+      setCategories(category_arr)
     }
+    
+
+
+
+      
+        
+      }
+      
+    
 
     fetch_all_category()
   },[]);
@@ -53,11 +65,11 @@ const SideBar = () => {
         
             
          {
-          categories.map(category => (
+          categories.length ? categories.map(category => (
             <li key={category.toString()} className='sidebarListItem'>
               <Link className='link' to={`/?category=${category}`}>{category}</Link>
             </li>
-          ))
+          )): 'no category found'
          }
 
         

@@ -118,10 +118,14 @@ router.get("/", async(req,res) => {
       posts = await Post.find({ category: catName })
     }else{
       posts = await Post.find();
+      
     }
 
+ 
+      res.status(200).json(posts);
+    
 
-    res.status(200).json(posts);
+   
   } catch (error) {
     res.status(500).json(error.message);
   }

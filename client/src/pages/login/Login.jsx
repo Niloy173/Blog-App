@@ -28,7 +28,7 @@ const Login = () => {
     dispatch({ type: 'LOGIN_START'});
     try {
 
-      const response = await axios.post(`/auth/login`,{
+      const response = await axios.post(`/api/auth/login`,{
         email: emailRef.current.value,
         password: passRef.current.value
       });

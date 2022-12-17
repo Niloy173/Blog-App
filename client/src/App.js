@@ -33,7 +33,7 @@ function App() {
           <Route path="/login" element={user ? <Home/> : <Login/>} />
           <Route path="/register" element={user ? <Home/>: <Register/>} />
           <Route path="/about" element={user? <Settings/> : <Login/>} />
-          <Route path="/write" element={user ? <Write/> : <Login/> } />
+          <Route path="/write" element={user ? <Write/> : <Login/> } /> 
          
 
           <Route path="/post/:postId" element={<Single/>} />

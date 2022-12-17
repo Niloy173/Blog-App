@@ -26,7 +26,7 @@ const SinglePost = () => {
   useEffect(() => {
 
     const fetch_single_post = async () => {
-      const response_single_post = await axios.get(`/posts/${pathid}`);
+      const response_single_post = await axios.get(`/api/posts/${pathid}`);
       setSinglePost(response_single_post.data);
       setDesc(response_single_post.data.desc);
       setTitle(response_single_post.data.title);
@@ -45,7 +45,7 @@ const SinglePost = () => {
      try {
 
      
-     await axios.delete(`/posts/delete-post/${pathid}`,
+     await axios.delete(`/api/posts/delete-post/${pathid}`,
       {
         headers: {
           'Authorization': user
@@ -64,7 +64,7 @@ const SinglePost = () => {
    
     try {
       
-    const response = await axios.put(`/posts/update-post/${pathid}`,
+    const response = await axios.put(`/api/posts/update-post/${pathid}`,
     {
       username: owner.username,
       title,

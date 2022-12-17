@@ -43,7 +43,7 @@ const Register = () => {
      
       try {
 
-        const response = await axios.post(`/auth/register`,formData);
+        const response = await axios.post(`/api/auth/register`,formData);
         response.data && window.location.replace("/login");
         
       } catch (error) {

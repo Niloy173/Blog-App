@@ -9,7 +9,7 @@ import JwtDecoder from '../../context/DecodeToken';
 const Write = () => {
   
   const [title, setTitle] = useState('');
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Music');
   const [desc, setDesc] = useState('');
   const [photo, setPhoto] = useState(null);
   const [flag, setFlag] = useState(false);
@@ -34,7 +34,7 @@ const Write = () => {
       // console.log(data)
       newPost.photo = filename;
       try {
-        await axios.post(`/upload`,data);
+        await axios.post(`/api/upload`,data);
       } catch (error) {
         setFlag(error.response.message);
         console.log(error.message);
@@ -43,8 +43,8 @@ const Write = () => {
 
     try {
 
-      const response = await axios.post(`/posts`, newPost);
-      //console.log(response)
+      const response = await axios.post(`/api/posts`, newPost);
+       console.log(response)
        window.location.replace("/post/"+response.data._id);
 
     } catch (error) {
@@ -85,9 +85,9 @@ const Write = () => {
 
         <div className='writeFormGroup'>
         
-          <select required onChange={(e) => setCategory(e.target.value)}  className='writeInput_' name='category'>
+          <select onChange={(e) => setCategory(e.target.value)}  className='writeInput_' name='category'>
             
-          <option  value={"Music"}>Music</option>
+          <option selected  value={"Music"}>Music</option>
           <option value={"Life"}>Life</option>
           <option value={"Sports"}>Sports</option>
           <option value={"Style"}>Style</option>

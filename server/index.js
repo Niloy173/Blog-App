@@ -41,10 +41,17 @@ app.use("/api/categories",categoryRoute);
 
 app.use("/api/upload",avatarUpload);
 
-app.use("/Images",express.static(path.join(__dirname,"/Images")));
+app.use("/Images", express.static(path.join(__dirname,"Images")));
+
+app.use(express.static(path.join(__dirname, '/../client/build/')));
+app.get('*', (req, res) =>{
+  res.sendFile(path.join(__dirname, '/../client/build/index.html'))
+});
+
+
 
 app.use((err,req,res,next) => {
-  res.status(404).json({ message : err.message })
+  res.status(404).json({ message : err.message });
 })
 
 app.listen(port,()=>{

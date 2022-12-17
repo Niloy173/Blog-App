@@ -18,7 +18,7 @@ const Home = () => {
 
     const fetch_all_post = async () => {
 
-      const response = await axios.get(`/posts`+search);
+      const response = await axios.get(`/api/posts`+search);
       setPosts(response.data);
 
     }
@@ -35,7 +35,9 @@ const Home = () => {
      <div className='home'>
      
       <Posts posts={posts}/>
+
       <SideBar/>
+
      </div>
     
     </>
