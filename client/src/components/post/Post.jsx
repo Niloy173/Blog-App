@@ -5,7 +5,8 @@ import './post.css';
 
 
 const Post = ({post}) => {
-  const PF = "http://localhost:5000/Images/";
+  // const PF = "http://localhost:5000/Images/";
+  const PF = "https://blog-application-3ytw.onrender.com/Images/";
   return (
    
     <div className="post">

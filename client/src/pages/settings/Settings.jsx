@@ -19,7 +19,8 @@ const Settings = () => {
   const userInformation = JwtDecoder(user);
   const [flag, setFlag] = useState(false);
   const [errors, setErros] = useState({});
-  const PF = "http://localhost:5000/Images/";
+  // const PF = "http://localhost:5000/Images/";
+  const PF = "https://blog-application-3ytw.onrender.com/Images/";
 
   const InitialValue = { username: '', email: '', password: '', profilePicture: ''}
   const [formData, setFormData] = useState(InitialValue);
