@@ -38,6 +38,7 @@ const SinglePost = () => {
   },[pathid]);
   
 
+
   if(user){
     owner = JwtDecoder(user);
   }
@@ -158,12 +159,9 @@ const SinglePost = () => {
               </div>
             ):
             (
-              <p className='singlePostDesc'>
-              {
-                singlePost.desc
-              }
+              <textarea value={singlePost.desc} className='singlePostDesc' style={{height: desc && desc.length / 2 }}>
              
-             </p>
+             </textarea>
             )
           }
          

@@ -48,9 +48,11 @@
 }
 
 .singlePostDesc {
-  color: #666;
+  color: #000;
   font-size: 18px;
   line-height: 25px;
+  overflow: hidden;
+  border: none;
 }
 
 .singlePostDesc::first-letter {
@@ -66,7 +68,7 @@ input {
 }
 
 textarea {
-  width: 80%;
+  width: 100%;
   padding: 1rem 0.7rem;
   height: 40vw;
   line-height: 2rem;
@@ -107,6 +109,9 @@ button {
 @media screen and (max-width: 769px) {
   .singlePostTitle {
     font-size: 18px;
+  }
+  .singlePostDesc {
+    overflow: scroll;
   }
 }
 
