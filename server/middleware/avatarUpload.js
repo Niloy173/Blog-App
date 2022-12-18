@@ -27,13 +27,13 @@ function avatarUpload(req, res, next) {
       res.status(500).json(err.message);
     } else {
       // res.status(200).json("file uploaded")
-      const filepath = path.join(uploaded_directory,req.body.name);
+      // const filepath = path.join(uploaded_directory,req.body.name);
         try {
 
-          const result = await cloudinary.uploader.upload(filepath,{
+          const result = await cloudinary.uploader.upload(req.body.name,{
             folder: "Blogapp"
           });
-           console.log(result);
+          console.log(result);
           res.status(200).json(result.secure_url);
           // fs.unlink(filepath, (err) => {
             
