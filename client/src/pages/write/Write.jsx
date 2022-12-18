@@ -41,7 +41,7 @@ const Write = () => {
 
       } catch (error) {
         setFlag(error.message);
-        console.log(error.message);
+        console.log(error);
       }
     }
 

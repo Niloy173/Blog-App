@@ -33,13 +33,14 @@ function avatarUpload(req, res, next) {
           const result = await cloudinary.uploader.upload(filepath,{
             folder: "Blogapp"
           });
-          // console.log(result);
-          fs.unlink(filepath, (err) => {
+           console.log(result);
+          res.status(200).json(result.secure_url);
+          // fs.unlink(filepath, (err) => {
             
-            if(err) console.log(err);
-            res.status(200).json(result.secure_url);
+          //   if(err) console.log(err);
             
-          });
+            
+          // });
           
           
         } catch (error) {
