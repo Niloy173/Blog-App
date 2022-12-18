@@ -5,16 +5,15 @@ import './post.css';
 
 
 const Post = ({post}) => {
-  // const PF = "http://localhost:5000/Images/";
-  const PF = "https://blog-application-3ytw.onrender.com/Images/";
+
   return (
    
     <div className="post">
       
      {post.photo && 
       ( <img className="postImg"
-      src={PF + post.photo}
-      alt={post.photo}
+      src={post.photo}
+      alt={"PostImage"}
       />
       )}
 

@@ -64,12 +64,6 @@ router.delete("/delete-post/:id", tokenVerfication, async (req,res) => {
 
     if(currentPost.username === req.body.username){
 
-      // delete the co-responding file 
-      // related to the post
-      currentPost.photo && fs.unlink(`${__dirname}/../Images/`+currentPost.photo, (err) => {
-        if(err) console.log(err);
-      })
-
         await currentPost.delete();
         res.status(200).json("Post has been deleted...");
 

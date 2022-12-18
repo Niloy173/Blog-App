@@ -27,6 +27,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // file uploader
 const {avatarUpload} = require("./middleware/avatarUpload")
+const {FileUploader} = require("./middleware/CloudinaryFileUpload")
 
 // test route
 app.use("/home",(req,res) => {
@@ -39,9 +40,8 @@ app.use("/api/user",userRoute);
 app.use("/api/posts",postRoute);
 app.use("/api/categories",categoryRoute);
 
-app.use("/api/upload",avatarUpload);
+app.use("/api/upload",avatarUpload,FileUploader);
 
-app.use("/Images", express.static(path.join(__dirname,"Images")));
 
 app.use(express.static(path.join(__dirname, '/../client/build/')));
 app.get('*', (req, res) =>{

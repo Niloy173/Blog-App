@@ -17,7 +17,6 @@ const TopBar = () => {
   const {user, dispatch} = useContext(Context);
   const [topbarstatus, setTopbarStatus] = useState(false);
 
-  const PF = "https://blog-application-3ytw.onrender.com/Images/";
   let userInformation;
   
   if(user){
@@ -78,7 +77,7 @@ const TopBar = () => {
         user?
         (
           userInformation.profile ?
-          (<Link className='link' to={"/about"}><img  className='topImg' src={PF + userInformation.profile}
+          (<Link className='link' to={"/about"}><img  className='topImg' src={userInformation.profile}
           alt='profileimage' /></Link>)
           :(<Link className='link' to={"/about"}><img  className='topImg' src={noUser}
           alt='profileimage' /></Link>)

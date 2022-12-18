@@ -17,8 +17,6 @@ const SinglePost = () => {
   const [singlePost, setSinglePost] = useState({});
   const [updateMode, setUpdateMode] = useState(false);
 
-  // const PF = "http://localhost:5000/Images/";
-  const PF = "https://blog-application-3ytw.onrender.com/Images/";
   const locattion = useLocation();
   const pathid = locattion.pathname.split("/")[2];
   let {user} = useContext(Context);
@@ -100,7 +98,7 @@ const SinglePost = () => {
       
           {
             singlePost.photo &&
-            (<img src={PF + singlePost.photo}
+            (<img src={singlePost.photo}
             alt={singlePost.photo} className="singlePostImg" />)
           }
 

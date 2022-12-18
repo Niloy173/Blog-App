@@ -17,10 +17,9 @@ const Settings = () => {
 
   const {user, dispatch} = useContext(Context)
   const userInformation = JwtDecoder(user);
+  console.log(userInformation);
   const [flag, setFlag] = useState(false);
   const [errors, setErros] = useState({});
-  // const PF = "http://localhost:5000/Images/";
-  const PF = "https://blog-application-3ytw.onrender.com/Images/";
 
   const InitialValue = { username: '', email: '', password: '', profilePicture: ''}
   const [formData, setFormData] = useState(InitialValue);
@@ -74,11 +73,11 @@ const Settings = () => {
     
           data.append("name",filename);
           data.append("photo", formData.profilePicture);
-          formData.profilePicture = filename;
 
         
             try {
-              await axios.post(`/api/upload`,data);
+              const response = await axios.post(`/api/upload`,data);
+              formData.profilePicture = response.data;
             } catch (error) {
               setFlag(error.response.message);
               //console.log(error.message);
@@ -134,7 +133,7 @@ const Settings = () => {
               alt='updatedUser' />):
             (
               userInformation.profile?
-              (<img src={PF + userInformation.profile} alt="profilePicture" />)
+              (<img src={userInformation.profile} alt="profilePicture" />)
               :<img src={noUser} alt="noUser" />
             )
            }

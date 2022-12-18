@@ -29,14 +29,18 @@ const Write = () => {
     if(photo){
       const data = new FormData();
       const filename = Date.now() + "-"+ photo.name;
+
       data.append("name",filename);
       data.append("photo", photo);
       // console.log(data)
-      newPost.photo = filename;
+      
       try {
-        await axios.post(`/api/upload`,data);
+        
+        const response = await axios.post(`/api/upload`,data);
+        newPost.photo = response.data;
+
       } catch (error) {
-        setFlag(error.response.message);
+        setFlag(error.message);
         console.log(error.message);
       }
     }
@@ -44,11 +48,11 @@ const Write = () => {
     try {
 
       const response = await axios.post(`/api/posts`, newPost);
-       console.log(response)
-       window.location.replace("/post/"+response.data._id);
+      // console.log(response)
+      window.location.replace("/post/"+response.data._id);
 
     } catch (error) {
-      setFlag(error.response.message);
+      setFlag(error.message);
     }
 
    
@@ -87,7 +91,7 @@ const Write = () => {
         
           <select onChange={(e) => setCategory(e.target.value)}  className='writeInput_' name='category'>
             
-          <option selected  value={"Music"}>Music</option>
+          <option value={"Music"}>Music</option>
           <option value={"Life"}>Life</option>
           <option value={"Sports"}>Sports</option>
           <option value={"Style"}>Style</option>
