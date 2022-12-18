@@ -17,7 +17,6 @@ const Settings = () => {
 
   const {user, dispatch} = useContext(Context)
   const userInformation = JwtDecoder(user);
-  console.log(userInformation);
   const [flag, setFlag] = useState(false);
   const [errors, setErros] = useState({});
 
