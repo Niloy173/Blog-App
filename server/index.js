@@ -40,7 +40,7 @@ app.use("/api/user",userRoute);
 app.use("/api/posts",postRoute);
 app.use("/api/categories",categoryRoute);
 
-app.use("/api/upload",avatarUpload,FileUploader);
+app.use("/api/upload",avatarUpload);
 
 
 app.use(express.static(path.join(__dirname, '/../client/build/')));

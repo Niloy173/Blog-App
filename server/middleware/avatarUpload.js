@@ -1,4 +1,16 @@
 const uploader = require("../utilities/singleUploader")
+const cloudinary = require("cloudinary").v2;
+const path = require("path");
+const fs = require("fs");
+
+const uploaded_directory = path.join(`${__dirname}/../Images`);
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key:process.env.CLOUD_API_KEY,
+  api_secret:process.env.CLOUD_API_SECRET
+})
+
 
 function avatarUpload(req, res, next) {
   const upload = uploader(
@@ -9,13 +21,31 @@ function avatarUpload(req, res, next) {
   );
 
   // call the middleware function
-  upload.single("photo")(req, res,next, (err) => {
+  upload.single("photo")(req, res,async (err) => {
     if (err) {
       console.log(err);
       res.status(500).json(err.message);
     } else {
       // res.status(200).json("file uploaded")
-      next();
+      const filepath = path.join(uploaded_directory,req.body.name);
+        try {
+
+          const result = await cloudinary.uploader.upload(filepath,{
+            folder: "Blogapp"
+          });
+          // console.log(result);
+          fs.unlink(filepath, (err) => {
+            
+            if(err) console.log(err);
+            res.status(200).json(result.secure_url);
+            
+          });
+          
+          
+        } catch (error) {
+          res.status(500).json("Failed to upload image");
+        }
+      
     }
   });
 }

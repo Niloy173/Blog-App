@@ -79,7 +79,8 @@ const Settings = () => {
               formData.profilePicture = response.data;
             } catch (error) {
               setFlag(error.response.message);
-              //console.log(error.message);
+              console.log(error);
+              
             }
           }else{
             formData.profilePicture = userInformation.profile;
