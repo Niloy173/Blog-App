@@ -2,18 +2,11 @@ const multer = require("multer");
 const path = require("path");
 const createError = require("http-errors")
 
+// upload folder path
+const UPLOAD_FOLDER = `${__dirname}/../Images`;
 
-function uploader(
-  subfolder_path,
-  allowed_file_types,
-  max_file_size,
-  error_msg
-) {
-  // upload folder path
-  const UPLOAD_FOLDER = `${__dirname}/../${subfolder_path}`;
-
-  // define storage
-  const storage = multer.diskStorage({
+// define storage
+const storage = multer.diskStorage({
     destination: (req, res, cb) => {
       cb(null, UPLOAD_FOLDER);
     },
@@ -33,23 +26,24 @@ function uploader(
     },
   });
 
-  // prepare the final multer object
-  const upload = multer({
+// prepare the final multer object
+const upload = multer({
     storage: storage,
     limits: {
-      fieldSize: max_file_size,
+      fieldSize: 20 * 1024 * 1024,
     },
     fileFilter: (req, file, cb) => {
-      if (allowed_file_types.includes("image/"+req.body.name.toString().split(".")[1])) {
+      if (["image/jpeg", "image/jpg", "image/png"].includes("image/"+req.body.name.toString().split(".")[1])) {
         cb(null, true);
       } else {
-        cb(createError(error_msg));
+        cb(createError("Only .jpg, jpeg or .png format allowed!"));
       }
     },
   });
 
-  // make upload object
-  return upload;
-}
 
-module.exports = uploader;
+
+
+module.exports = {
+  upload
+};
