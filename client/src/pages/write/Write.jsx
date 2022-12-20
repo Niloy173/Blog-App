@@ -48,8 +48,8 @@ const Write = () => {
     try {
 
       const response = await axios.post(`/api/posts`, newPost);
-       console.log(response)
-      // window.location.replace("/post/"+response.data._id);
+      console.log(response)
+      window.location.replace("/post/"+response.data._id);
 
     } catch (error) {
       setFlag(error.message);
