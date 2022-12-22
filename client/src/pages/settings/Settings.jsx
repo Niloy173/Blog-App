@@ -76,6 +76,7 @@ const Settings = () => {
         
             try {
               const response = await axios.post(`/api/upload`,data);
+              console.log(response);
               formData.profilePicture = response.data;
             } catch (error) {
               setFlag(error.response.message);
