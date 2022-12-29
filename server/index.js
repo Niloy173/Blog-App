@@ -51,7 +51,7 @@ app.use("/api/categories",categoryRoute);
 
 
 
-app.post("/api/upload",upload.single("photo"),(req,res) => {
+app.post("/api/upload",upload.single('image'),(req,res) => {
 
       try {
 
@@ -59,10 +59,10 @@ app.post("/api/upload",upload.single("photo"),(req,res) => {
           folder: "Blogapp"
         },(err,response) => {
           if (err) {
-            res.status(500).json({ error });
+            res.status(500).json({ err });
             return;
           }
-      
+          
           res.json({
             message: 'Image successfully uploaded to Cloudinary',
             response

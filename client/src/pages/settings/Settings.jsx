@@ -82,6 +82,7 @@ const Settings = () => {
               });
 
               const result = await response.json();
+              console.log(result);
               formData.profilePicture = result.response['secure_url'];
               
             } catch (error) {
