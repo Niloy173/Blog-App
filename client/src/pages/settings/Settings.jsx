@@ -99,7 +99,7 @@ const Settings = () => {
     
         try {
     
-          // console.log(formData);
+          console.log(formData);
           await axios.put(`/api/user/${userInformation.userid}`,formData);
           //dispatch({ type: 'LOG_OUT'});
     
