@@ -101,7 +101,7 @@ const Settings = () => {
     
           // console.log(formData);
           await axios.put(`/api/user/${userInformation.userid}`,formData);
-           dispatch({ type: 'LOG_OUT'});
+          //dispatch({ type: 'LOG_OUT'});
     
         } catch (error) {
           setFlag(error.response.message);
