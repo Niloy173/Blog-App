@@ -67,6 +67,7 @@ const Settings = () => {
 
         if(formData.profilePicture){
 
+          console.log(formData.profilePicture);
           const data = new FormData();
           const filename = Date.now()+"_profile-"+ formData.profilePicture.name;
     
@@ -92,9 +93,9 @@ const Settings = () => {
     
         try {
     
-          // console.log(formData);
+          console.log(formData);
           await axios.put(`/api/user/${userInformation.userid}`,formData);
-          dispatch({ type: 'LOG_OUT'});
+          // dispatch({ type: 'LOG_OUT'});
     
         } catch (error) {
           setFlag(error.response.message);

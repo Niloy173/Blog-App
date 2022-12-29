@@ -62,6 +62,7 @@ app.use("/api/upload",upload.single("photo"),async (req,res) => {
         const result = await cloudinary.uploader.upload(req.file.path,{
           folder: "Blogapp"
         });
+        console.log(result)
         // fs.unlink(filepath, (err) =>{
         //   if(err) console.log(err)
         res.status(200).json(result.secure_url);
