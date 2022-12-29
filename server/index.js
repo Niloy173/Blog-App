@@ -55,8 +55,6 @@ app.post("/api/upload",upload.single("photo"),async (req,res) => {
 
   const uploaded_directory = path.join(`${__dirname}/Images/`);
     // res.status(200).json("file uploaded")
-     const filepath = path.join(uploaded_directory,req.body.name);
-    //  console.log(filepath);
       try {
 
         const result = await cloudinary.uploader.upload(req.file.path,{
@@ -65,7 +63,10 @@ app.post("/api/upload",upload.single("photo"),async (req,res) => {
         console.log(result)
         // fs.unlink(filepath, (err) =>{
         //   if(err) console.log(err)
-        res.status(200).json(result.secure_url);
+        res.status(200).json({
+          message: 'success',
+          result
+        });
         // })
         
         

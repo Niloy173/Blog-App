@@ -67,7 +67,7 @@ const Settings = () => {
 
         if(formData.profilePicture){
 
-          console.log(formData.profilePicture);
+          // console.log(formData.profilePicture);
           const data = new FormData();
           const filename = Date.now()+"_profile-"+ formData.profilePicture.name;
     
@@ -76,9 +76,15 @@ const Settings = () => {
 
         
             try {
-              const response = await axios.post(`/api/upload`,data);
-              console.log(response);
-              formData.profilePicture = response.data;
+              const response = await fetch("/api/upload",{
+                method : "POST",
+                body: formData
+              });
+
+              const data = await response.json();
+              console.log(data);
+              formData.profilePicture = data.result['secure_url'];
+              
             } catch (error) {
               setFlag(error.response.message);
               console.log(error);
@@ -93,9 +99,9 @@ const Settings = () => {
     
         try {
     
-          console.log(formData);
+          // console.log(formData);
           await axios.put(`/api/user/${userInformation.userid}`,formData);
-          // dispatch({ type: 'LOG_OUT'});
+           dispatch({ type: 'LOG_OUT'});
     
         } catch (error) {
           setFlag(error.response.message);
