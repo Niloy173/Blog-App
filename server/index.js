@@ -51,7 +51,7 @@ app.use("/api/categories",categoryRoute);
 
 
 
-app.use("/api/upload",upload.single("photo"),async (req,res) => {
+app.post("/api/upload",upload.single("photo"),async (req,res) => {
 
   const uploaded_directory = path.join(`${__dirname}/Images/`);
     // res.status(200).json("file uploaded")
