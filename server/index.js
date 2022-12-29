@@ -51,26 +51,28 @@ app.use("/api/categories",categoryRoute);
 
 
 
-app.post("/api/upload",upload.single("photo"),async (req,res) => {
+app.post("/api/upload",upload.single("photo"),(req,res) => {
 
-  const uploaded_directory = path.join(`${__dirname}/Images/`);
-    // res.status(200).json("file uploaded")
       try {
 
-        const result = await cloudinary.uploader.upload(req.file.path,{
+        cloudinary.uploader.upload(req.file.path,{
           folder: "Blogapp"
+        },(err,response) => {
+          if (err) {
+            res.status(500).json({ error });
+            return;
+          }
+      
+          res.json({
+            message: 'Image successfully uploaded to Cloudinary',
+            response
+          });
+
         });
-        console.log(result)
+        
         // fs.unlink(filepath, (err) =>{
         //   if(err) console.log(err)
-        res.status(200).json({
-          message: 'success',
-          result
-        });
         // })
-        
-        
-        
       } catch (error) {
         console.log(error.message);
         res.status(500).json("Failed to upload image");

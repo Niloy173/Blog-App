@@ -12,17 +12,17 @@ const storage = multer.diskStorage({
     },
 
     filename: (req, file, cb) => {
-      // const FileExt = path.extname(file.originalname);
-      // const filename =
-      //   file.originalname
-      //     .replace(FileExt, "")
-      //     .toLowerCase()
-      //     .split(" ")
-      //     .join("-") +
-      //   "-" +
-      //   Date.now();
+      const FileExt = path.extname(file.originalname);
+      const filename =
+        file.originalname
+          .replace(FileExt, "")
+          .toLowerCase()
+          .split(" ")
+          .join("-") +
+        "-" +
+        Date.now();
 
-      cb(null, req.body.name);
+      cb(null, filename+FileExt);
     },
   });
 
@@ -33,7 +33,9 @@ const upload = multer({
       fieldSize: 20 * 1024 * 1024,
     },
     fileFilter: (req, file, cb) => {
-      if (["image/jpeg", "image/jpg", "image/png"].includes("image/"+req.body.name.toString().split(".")[1])) {
+      if (file.mimetype === "image/png" ||
+      file.mimetype === "image/jpg" ||
+      file.mimetype === "image/jpeg") {
         cb(null, true);
       } else {
         cb(createError("Only .jpg, jpeg or .png format allowed!"));

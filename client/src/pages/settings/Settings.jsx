@@ -20,18 +20,22 @@ const Settings = () => {
   const [flag, setFlag] = useState(false);
   const [errors, setErros] = useState({});
 
-  const InitialValue = { username: '', email: '', password: '', profilePicture: ''}
+  const InitialValue = { username: '', email: '', password: '',profilePicture:''}
   const [formData, setFormData] = useState(InitialValue);
+
 
   const handler = (e) => {
     const {name,value} = e.target;
 
-    if(name === "profilePicture"){
-      setFormData({...formData, [name]: e.target.files[0]});
-    }else{
+      if(name === "profilePicture"){
+        
+        setFormData({...formData, [name]: e.target.files[0]})
+        
+      }else{
        setFormData({...formData, [name]: value});
+      }
     }
-  }
+  
 
     
 
@@ -66,27 +70,22 @@ const Settings = () => {
     if(Object.keys(errors).length === 0){
 
         if(formData.profilePicture){
-
-          // console.log(formData.profilePicture);
+          
           const data = new FormData();
-          const filename = Date.now()+"_profile-"+ formData.profilePicture.name;
-    
-          data.append("name",filename);
-          data.append("photo", formData.profilePicture);
+          data.append('image',formData.profilePicture);
 
         
             try {
               const response = await fetch("/api/upload",{
-                method : "POST",
-                body: formData
+                method : 'POST',
+                body: data
               });
 
-              const data = await response.json();
-              console.log(data);
-              formData.profilePicture = data.result['secure_url'];
+              const result = await response.json();
+              formData.profilePicture = result.response['secure_url'];
               
             } catch (error) {
-              setFlag(error.response.message);
+              setFlag(error.message);
               console.log(error);
               
             }
@@ -130,7 +129,7 @@ const Settings = () => {
         </div>
         <p>{flag?flag:null}</p>
 
-        <form onSubmit={handleSubmit}  className="settingsForm">
+        <form onSubmit={handleSubmit}   className="settingsForm">
         
           <label>Profile Picture</label>
           <div className="settingsProfilePic">
@@ -176,7 +175,7 @@ const Settings = () => {
           
            
         {
-          formData.profilePicture || formData.email || formData.password || formData.username ?
+          Image || formData.email || formData.password || formData.username ?
           (<button type='submit'>update</button>):null
         }
              
