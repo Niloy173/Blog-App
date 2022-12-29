@@ -3,7 +3,7 @@ const path = require("path");
 const createError = require("http-errors")
 
 // upload folder path
-const UPLOAD_FOLDER = `${__dirname}/../Images`;
+const UPLOAD_FOLDER = path.join(__dirname,'/../Images/');
 
 // define storage
 const storage = multer.diskStorage({
