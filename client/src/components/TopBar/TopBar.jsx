@@ -60,13 +60,13 @@ const TopBar = () => {
       <ul className={topbarstatus? 'showTopbar': 'topList'}>
       
         
-        <li className='topListItem'><Link className='link' to={"/"}>Home</Link></li>
-        <li className='topListItem'><Link className='link'to={"/about"}>About</Link> </li>
-        <li className='topListItem'><Link className='link'to={"/write"}>Write</Link></li>
-        <li className='topListItem'><Link className='link'to={"/contact"}>Contact</Link></li>
-        <li className='topListItem'>
-          {user?(<Link className='link' to={"/"} onClick={handleLogOut}>LogOut</Link>):null}
-        </li>
+      <Link className='link' to={"/"}><li className='topListItem'>Home</li></Link>
+      <Link className='link'to={"/about"}> <li className='topListItem'>About </li></Link>
+      <Link className='link'to={"/write"}><li className='topListItem'>Write</li></Link>
+      <Link className='link'to={"/contact"}> <li className='topListItem'>Contact</li></Link>
+      <Link className='link' to={"/"} onClick={handleLogOut}> <li className='topListItem'>
+          {user?'LogOut':null}
+        </li></Link>
   
       </ul>
 
