@@ -129,6 +129,7 @@ const Settings = () => {
                   axios.put(`/api/user/${userInformation.userid}`,formData)
                   .then((updatedInfo) => {
                     if(updatedInfo.status === 200){
+                      /*updated */
                       dispatch({ type: 'LOG_OUT'});
                     }else{
                       setFlag('error occurred', updatedInfo.status);

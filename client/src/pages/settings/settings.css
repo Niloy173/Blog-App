@@ -90,7 +90,7 @@ input:focus {
 
 progress {
   border: 1px solid #ccc;
-  height: 15px;
+  height: 14px;
 }
 @media screen and (max-width: 769px) {
   .settings {
