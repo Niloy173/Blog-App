@@ -1,11 +1,11 @@
 import axios from 'axios'
+import { motion } from 'framer-motion'
 import React, { useContext, useEffect, useState } from 'react'
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai"
 import { Link, useLocation } from 'react-router-dom'
 import { Context } from '../../context/Context'
 import JwtDecoder from '../../context/DecodeToken'
 import './singlepost.css'
-
 
 
 const SinglePost = () => {
@@ -92,13 +92,18 @@ const SinglePost = () => {
   
 
   return (
-    <div className='singlePost'>
+
+    singlePost ?
+    <motion.div
+    initial={{ opacity: 1 }} animate={{ opacity: 1 }}
+    transition={{ delay: 1}}  
+    className='singlePost'>
     
       <div className="singlePostWrapper">
       
           {
             singlePost.photo &&
-            (<img src={singlePost.photo}
+            (<motion.img src={singlePost.photo}
             alt={singlePost.photo} className="singlePostImg" />)
           }
 
@@ -172,7 +177,8 @@ const SinglePost = () => {
             flag? flag: null
           }
       </p>
-    </div>
+    </motion.div>
+    : 'Post is Loading. please wait........'
   )
 }
 

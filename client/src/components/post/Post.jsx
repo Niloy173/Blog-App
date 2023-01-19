@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import React from "react";
 import { Link } from 'react-router-dom';
 import './post.css';
@@ -8,10 +9,16 @@ const Post = ({post}) => {
 
   return (
    
-    <div className="post">
+    <motion.div 
+    initial={{ opacity: 0}}
+    animate={{ opacity: 1 }}
+    transition={{ delay: 1}} 
+    className="post" layout>
       
      {post.photo && 
-      ( <img className="postImg"
+      ( <motion.img 
+        
+      className="postImg"
       src={post.photo}
       alt={"PostImage"}
       />
@@ -52,7 +59,7 @@ const Post = ({post}) => {
       
       </div>
 
-    </div>
+    </motion.div>
   )
 }
 

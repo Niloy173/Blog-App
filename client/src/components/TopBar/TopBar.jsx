@@ -1,6 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import './topbar.css'
 
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
 //icons
@@ -77,7 +78,9 @@ const TopBar = () => {
         user?
         (
           userInformation.profile ?
-          (<Link className='link' to={"/about"}><img  className='topImg' src={userInformation.profile}
+          (<Link className='link' to={"/about"}><motion.img 
+            initial={{ opacity: 1}} animate={{ opacity: 1 }} transition={{ delay: 1}}
+           className='topImg' src={userInformation.profile}
           alt='profileimage' /></Link>)
           :(<Link className='link' to={"/about"}><img  className='topImg' src={noUser}
           alt='profileimage' /></Link>)
