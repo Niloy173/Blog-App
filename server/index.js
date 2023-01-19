@@ -53,9 +53,10 @@ app.use("/api/categories",categoryRoute);
 
 app.post("/api/upload",upload.single('image'),(req,res) => {
 
+    //const filepath = path.join(__dirname,'/Images/',req.file.filename);
       try {
 
-        cloudinary.uploader.upload(req.file.path,{
+        cloudinary.uploader.upload(`./Images/${req.file.filename}`,{
           folder: "Blogapp"
         },(err,response) => {
           if (err) {

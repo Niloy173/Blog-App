@@ -81,9 +81,14 @@ const Settings = () => {
                 body: data
               });
 
-              const result = await response.json();
-              console.log(result);
-              formData.profilePicture = result.response['secure_url'];
+              if(response.status === 200){
+                const result = await response.json();
+                formData.profilePicture = result.response['secure_url'];
+              }else{
+                console.log(response)
+              }
+
+             
               
             } catch (error) {
               setFlag(error.message);
@@ -100,8 +105,13 @@ const Settings = () => {
         try {
     
           console.log(formData);
-          await axios.put(`/api/user/${userInformation.userid}`,formData);
-          //dispatch({ type: 'LOG_OUT'});
+          const updatedInfo = await axios.put(`/api/user/${userInformation.userid}`,formData);
+          if(updatedInfo.status === 200){
+             dispatch({ type: 'LOG_OUT'});
+          }else{
+            setFlag('error occurred', updatedInfo.status);
+          }
+         
     
         } catch (error) {
           setFlag(error.response.message);
