@@ -55,6 +55,10 @@
   border: none;
 }
 
+.singlePostDesc:focus {
+  outline: none;
+}
+
 .singlePostDesc::first-letter {
   margin-left: 20px;
   font-size: 30px;

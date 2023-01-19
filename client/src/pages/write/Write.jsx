@@ -3,8 +3,10 @@ import WriteImage from '../../assets/write.jpg';
 import './write.css';
 
 import axios from 'axios';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { BsFillCloudUploadFill } from 'react-icons/bs';
 import JwtDecoder from '../../context/DecodeToken';
+import { projectStorage } from '../../firebase/config';
 
 const Write = () => {
   
@@ -12,12 +14,16 @@ const Write = () => {
   const [category, setCategory] = useState('Music');
   const [desc, setDesc] = useState('');
   const [photo, setPhoto] = useState(null);
-  const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState('');
+  const [percentage, setPercentage] = useState(0);
+  const [isdisabled, setIsDisabled] = useState(false);
+
 
   const user = JwtDecoder(localStorage.getItem("user"));
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setIsDisabled(true);
 
     const newPost = {
       title,
@@ -27,32 +33,65 @@ const Write = () => {
     }
 
     if(photo){
-      const data = new FormData();
-      const filename = Date.now() + "-"+ photo.name;
+      // const data = new FormData();
+      // const filename = Date.now() + "-"+ photo.name;
 
-      data.append("name",filename);
-      data.append("photo", photo);
-      // console.log(data)
+      // data.append("name",filename);
+      // data.append("photo", photo);
+      // // console.log(data)
       
-      try {
+      // try {
         
-        const response = await axios.post(`/api/upload`,data);
-        newPost.photo = response.data;
+      //   const response = await axios.post(`/api/upload`,data);
+      //   newPost.photo = response.data;
 
-      } catch (error) {
-        setFlag(error.message);
-        console.log(error);
-      }
-    }
+      // } catch (error) {
+      //   setFlag(error.message);
+      //   console.log(error);
+      // }
 
-    try {
+       /* using firebase */
+          
+       const storageRef = ref(projectStorage, photo.name);
+       const updateTask = uploadBytesResumable(storageRef, photo);
 
-      const response = await axios.post(`/api/posts`, newPost);
-      console.log(response)
-      window.location.replace("/post/"+response.data._id);
+       updateTask.on('state_changed', (snap) =>{
+         let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+         setPercentage(percentage)
+       },(err) => {
+         setFlag(err)
+       },
+       ()=> {
 
-    } catch (error) {
-      setFlag(error.message);
+
+         getDownloadURL(updateTask.snapshot.ref)
+         .then((url) => {
+       
+           newPost.photo = url;
+           axios.post(`/api/posts`, newPost)
+           .then((response) => {
+     
+             console.log(response)
+             window.location.replace("/post/"+response.data._id);
+           })
+           .catch((error) => {
+            setFlag(error)
+           })
+
+         });
+
+       });
+
+    }else{
+
+      axios.post(`/api/posts`, newPost)
+      .then((response) => {
+
+        console.log(response)
+        window.location.replace("/post/"+response.data._id);
+      })
+     
+
     }
 
    
@@ -63,6 +102,7 @@ const Write = () => {
   return (
     
     <div className="write">
+    
 
 
     {
@@ -75,8 +115,21 @@ const Write = () => {
 
     
       <form onSubmit={handleSubmit} action="" className='writeForm'>
+
+      
+
       
         <div className="writeFormGroup">
+
+        {
+          percentage > 0 &&
+          (
+            <div className="percentage">
+              <progress value={percentage}  max={100}></progress>
+              {Math.round(percentage)}%
+            </div>
+          )
+        }
         
         
           <label className='fileInput'  htmlFor='fileInput'>
@@ -112,7 +165,11 @@ const Write = () => {
         </div>
 
 
-        <button className='writeSubmit'>Publish</button>
+        {
+          !isdisabled &&
+          <button className='writeSubmit'>Publish</button>
+        }
+
 
       
       </form>

@@ -97,6 +97,14 @@
     font-size: 18px;
   }
 }
+.percentage {
+  margin: 10px 0;
+}
+progress {
+  border: 1px solid #ccc;
+  height: 14px;
+  width: 60vw;
+}
 
 @media screen and (max-width: 769px) {
   .write {
