@@ -88,6 +88,10 @@ input:focus {
   cursor: pointer;
 }
 
+progress {
+  border: 1px solid #ccc;
+  height: 15px;
+}
 @media screen and (max-width: 769px) {
   .settings {
     display: block;

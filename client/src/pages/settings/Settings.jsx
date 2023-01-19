@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { AiOutlineUserAdd } from 'react-icons/ai'
 import Sidebar from '../../components/sidebar/SideBar'
 import JwtDecoder from '../../context/DecodeToken'
@@ -12,13 +12,19 @@ import axios from 'axios'
 import noUser from '../../assets/7612643-nophoto.png'
 import { Context } from '../../context/Context'
 
+  /* firebase file */
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage'
+import { projectStorage } from '../../firebase/config'
+
 const Settings = () => {
   
 
   const {user, dispatch} = useContext(Context)
   const userInformation = JwtDecoder(user);
-  const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState('');
   const [errors, setErros] = useState({});
+  const [percentage,setPercentage] = useState(0);
+  const submitRef = useRef(false);
 
   const InitialValue = { username: '', email: '', password: '',profilePicture:''}
   const [formData, setFormData] = useState(InitialValue);
@@ -41,6 +47,7 @@ const Settings = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    submitRef.current = true;
     
     const errors = {};
     // eslint-disable-next-line no-useless-escape
@@ -71,51 +78,103 @@ const Settings = () => {
 
         if(formData.profilePicture){
           
-          const data = new FormData();
-          data.append('image',formData.profilePicture);
-
+          // const data = new FormData();
+          // data.append('image',formData.profilePicture);
+          // console.log(data);
         
-            try {
-              const response = await fetch("/api/upload",{
-                method : 'POST',
-                body: data
-              });
+          //   try {
+          //     const response = await fetch("/api/upload",{
+          //       method : 'POST',
+          //       body: data
+          //     });
 
-              if(response.status === 200){
-                const result = await response.json();
-                formData.profilePicture = result.response['secure_url'];
-              }else{
-                console.log(response)
-              }
+          //     if(response.status === 200){
+          //       const result = await response.json();
+          //       formData.profilePicture = result.response['secure_url'];
+          //     }else{
+          //       console.log(response)
+          //     }
 
              
               
-            } catch (error) {
-              setFlag(error.message);
-              console.log(error);
+          //   } catch (error) {
+          //     setFlag(error.message);
+          //     console.log(error);
               
-            }
+          //   }
+
+          /* using firebase */
+          
+            const storageRef = ref(projectStorage, formData.profilePicture.name);
+            const updateTask = uploadBytesResumable(storageRef, formData.profilePicture);
+
+            updateTask.on('state_changed', (snap) =>{
+              let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+              setPercentage(percentage)
+            },(err) => {
+              setFlag(err)
+            },
+            ()=> {
+
+
+              getDownloadURL(updateTask.snapshot.ref)
+              .then((url) => {
+            
+                formData.profilePicture = url;
+                formData.username = formData.username ? formData.username : userInformation.username;
+                formData.email = formData.email ? formData.email : userInformation.useremail;
+  
+      
+                  // console.log(formData);
+                  axios.put(`/api/user/${userInformation.userid}`,formData)
+                  .then((updatedInfo) => {
+                    if(updatedInfo.status === 200){
+                      dispatch({ type: 'LOG_OUT'});
+                    }else{
+                      setFlag('error occurred', updatedInfo.status);
+                    }
+                  })
+                  .catch((err) =>{
+                    console.log(err);
+                    setFlag(err.message)
+                  })
+                  
+                 
+            
+  
+              })
+
+            })
+
+            
+            
+            
+
           }else{
+            
             formData.profilePicture = userInformation.profile;
-          }
-        
-        formData.username = formData.username ? formData.username : userInformation.username;
-        formData.email = formData.email ? formData.email : userInformation.useremail;
+            formData.username = formData.username ? formData.username : userInformation.username;
+            formData.email = formData.email ? formData.email : userInformation.useremail;
+
+
+
     
-        try {
-    
-          console.log(formData);
-          const updatedInfo = await axios.put(`/api/user/${userInformation.userid}`,formData);
-          if(updatedInfo.status === 200){
-             dispatch({ type: 'LOG_OUT'});
-          }else{
-            setFlag('error occurred', updatedInfo.status);
-          }
-         
-    
-        } catch (error) {
-          setFlag(error.response.message);
-        }
+              // console.log(formData);
+              axios.put(`/api/user/${userInformation.userid}`,formData)
+              .then((updatedInfo) => {
+                if(updatedInfo.status === 200){
+                  dispatch({ type: 'LOG_OUT'});
+                }else{
+                  setFlag('error occurred', updatedInfo.status);
+                }
+              })
+              .catch((err) =>{
+                console.log(err);
+                setFlag(err.message)
+              })
+
+            }
+
     }else{
       setErros(errors);
     }
@@ -186,17 +245,28 @@ const Settings = () => {
           
            
         {
-          Image || formData.email || formData.password || formData.username ?
-          (<button type='submit'>update</button>):null
+         formData.profilePicture ||  formData.email || formData.password || formData.username ?
+          (<button type='submit' disabled={submitRef.current}>update</button>):null
         }
              
           
+        
+      {
+        percentage > 0 &&
+        (
+          <div className="percentage">
+            <progress value={percentage}  max={100}></progress>
+            {Math.round(percentage)}%
+          </div>
+        )
+      }
 
           
         </form>
 
       
       </div>
+
 
       <Sidebar/>
     
