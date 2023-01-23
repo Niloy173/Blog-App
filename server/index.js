@@ -27,13 +27,6 @@ cloudinary.config({
   api_secret:process.env.CLOUD_API_SECRET
 })
 
-// specifying cors 
-app.use(cors({
-  origin : "*",
-  methods: ["GET"] // this is a practice project 
-                  // so i'm using this as a public api
-                  // creating a access-control-allow-origin : '*' in response headers
-}))
 
 // middleware
 app.use(express.json());
