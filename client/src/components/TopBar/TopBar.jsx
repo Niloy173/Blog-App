@@ -92,7 +92,9 @@ const TopBar = () => {
         </div>
        }
 
+       <Link to={"/search"}>
         <BsSearch className='topSearchIcon' />
+       </Link> 
       
       </div>
     </div>

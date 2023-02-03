@@ -162,9 +162,9 @@ const SinglePost = () => {
               </div>
             ):
             (
-              <textarea value={singlePost.desc} className='singlePostDesc' style={{height: desc && desc.length / 2 }}>
-             
-             </textarea>
+              <p className='singlePostDesc' style={{height: desc && desc.length / 2 }}>
+             {singlePost.desc}
+             </p>
             )
           }
          

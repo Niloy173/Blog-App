@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Search from "./components/search/Search";
 
 
 // components
@@ -11,6 +12,9 @@ import Register from "./pages/Register/Register";
 import Settings from './pages/settings/Settings';
 import Single from "./pages/single/Single";
 import Write from "./pages/write/Write";
+
+// toast css
+import "react-toastify/dist/ReactToastify.css";
 
 
 function App() {
@@ -37,6 +41,7 @@ function App() {
          
 
           <Route path="/post/:postId" element={<Single/>} />
+          <Route path="/search" element={<Search/>} />
          
           <Route path="*" element={<div style={{
             padding: "70px 0",

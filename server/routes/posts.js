@@ -124,4 +124,22 @@ router.get("/", async(req,res) => {
     res.status(500).json(error.message);
   }
 })
+
+
+router.get("/search/:searchText",async (req,res) => {
+
+  const searchText = req.params.searchText;
+  
+  try {
+    const response = await Post.find({ title: new RegExp(searchText,'i') });
+    return res.status(200).json(response);
+  } catch (error) {
+    res.status(404).json(error.message);
+  }
+
+  
+
+})
+
+
 module.exports = router;
