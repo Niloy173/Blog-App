@@ -67,10 +67,25 @@
   border-radius: 50%;
   padding: 10px;
 }
+.sidebarItem > p {
+  line-height: 1.4;
+}
 
 /* @media screen and (max-width: 1024px){
   .sid
 } */
+
+@media screen and (max-width: 969px) {
+  .sidebarItem > img {
+    width: 550px;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .sidebarItem > img {
+    width: 450px;
+  }
+}
 
 @media screen and (max-width: 469px) {
   .sidebarItem > img {

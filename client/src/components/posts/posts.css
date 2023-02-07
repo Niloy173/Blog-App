@@ -6,6 +6,42 @@
   margin: 20px;
 }
 
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  gap: 20px;
+}
+
+.loading .icon {
+  width: 50%;
+  display: grid;
+  place-content: center;
+  margin: 1rem 0;
+}
+.icon .licon {
+  font-size: 50px;
+}
+
+.loading .msg {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.msg h3 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.msg p {
+  color: rgba(0, 0, 0, 0.4);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
 @media screen and (max-width: 769px) {
   .posts {
     margin: 10px;

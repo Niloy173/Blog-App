@@ -63,10 +63,15 @@ const TopBar = () => {
       <Link className='link' to={"/"}><li className='topListItem'>Home</li></Link>
       <Link className='link'to={"/about"}> <li className='topListItem'>About </li></Link>
       <Link className='link'to={"/write"}><li className='topListItem'>Write</li></Link>
-      <Link className='link'to={"/contact"}> <li className='topListItem'>Contact</li></Link>
-      <Link className='link' to={"/"} onClick={handleLogOut}> <li className='topListItem'>
-          {user?'LogOut':null}
-        </li></Link>
+      {/*<Link className='link'to={"/contact"}> <li className='topListItem'>Contact</li></Link>*/}
+      {
+        user && 
+        (<Link className='link' to={"/"} onClick={handleLogOut}> <li className='topListItem'>
+        LogOut
+      </li></Link>)
+
+      }
+
   
       </ul>
 

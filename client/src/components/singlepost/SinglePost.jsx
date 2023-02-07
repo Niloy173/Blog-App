@@ -162,7 +162,7 @@ const SinglePost = () => {
               </div>
             ):
             (
-              <p className='singlePostDesc' style={{height: desc && desc.length / 2 }}>
+              <p className='singlePostDesc' /*style={{height: desc && desc.length }}*/>
              {singlePost.desc}
              </p>
             )

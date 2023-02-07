@@ -52,6 +52,13 @@
   margin-top: 15px;
   margin-bottom: 15px;
 }
+.learn_more .link {
+  color: #152238;
+}
+
+.learn_more .link:hover {
+  border-bottom: 1px solid #000000;
+}
 
 @media screen and (max-width: 1024px) {
   .postTitle {
